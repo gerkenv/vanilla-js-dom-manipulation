@@ -1,0 +1,7 @@
+{
+  "css": {
+    "style": [
+      "../static/bootstrap.min.css"
+    ]
+  }
+}

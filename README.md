@@ -13,3 +13,7 @@ Document object model represented by a tree structure, containing a couple of ma
 </html>
 ```
 That's it, every thing else is optional.
+
+## Intellisence for CSS
+* [stackoverflow](https://stackoverflow.com/questions/35213941/how-to-add-intellisense-to-visual-studio-code-for-bootstrap)
+
