@@ -56,7 +56,7 @@ Some props:
 ### Useful Element Methods (Perhaps)
 * `element.append()` / `element.appendNode()` - add new child (if such child already exists then moves it from current position to the last child position).
 
-### Native Selectors
+## Native Selectors
 There are a couple of different selectors:
 * `document.getElementById(id)` - returns a first matching element with defined `id` attribute. (In valid HTML there should be only one element with unique `id`).
 * `document.getElementsByClassName(cssClass)` - return a HTMLCollection of matches (not array, no `.forEach`).
