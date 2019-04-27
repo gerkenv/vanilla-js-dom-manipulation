@@ -83,3 +83,117 @@ There are a couple of different selectors:
     * `.someClass:nth-child(even)` - get even child.
 
 ## 2. Traversing DOM
+### 2.0. Elements Relationships
+* Some node may have a child node.
+* Some node may have a parent node.
+* If node A contains child nodes A1 & A2 then they are siblings.
+* If node A contains child node A1 and A1 contains another child node A11 then A1 & A11 are descendants of A.
+  * In the same situation A & A1 are ancestors of A11.
+
+### 2.1. Querying Elements
+#### 2.1.1. Accessing Parent
+```html
+<div id="main" class="card card-body">
+  <h2 class="title">Add Items</h2>
+  <!-- ... -->
+</div>
+```
+```js
+var itemList = document.querySelector('h2.title');
+console.log(itemList.parentNode);
+```
+So use can use property `.parentNode` to access a parent node. Or use `.parentNode.parentNode` to access grandparent node.
+The same way you can use `.parentElement`.
+
+#### 2.1.2. Accessing All Children
+```html
+<ul id="items" class="list-group">
+  <li class="list-group-item">Item 1</li>
+  <li class="list-group-item">Item 2</li>
+  <li class="list-group-item">Item 3</li>
+  <li class="list-group-item">Item 4</li>
+</ul>
+```
+```js
+var itemList = document.querySelector('#items');
+console.log(itemList.childNodes);
+console.log(itemList.children);
+```
+So `.children` returns all html elements - 4 `li` contained inside of `ul`, but `.shildNodes` returns also all text contained between `ul` and `li`, `li` and `li`, `li` and `ul`, in this example it is all newline characters, but it also could be any text contained between html elements. \
+So if you remove all text like below
+```html
+<ul id="items" class="list-group"><li class="list-group-item">Item 1</li><li class="list-group-item">Item 2</li><li class="list-group-item">Item 3</li><li class="list-group-item">Item 4</li></ul>
+```
+then result of both properties will match.
+
+#### 2.1.3. Accessing Last Child
+```html
+<ul id="items" class="list-group">
+  <li class="list-group-item">Item 1</li>
+  <li class="list-group-item">Item 2</li>
+  <li class="list-group-item">Item 3</li>
+  <li class="list-group-item">Item 4</li>
+</ul>
+```
+```js
+var itemList = document.querySelector('#items');
+console.log(itemList.lastChild);
+console.log(itemList.lastElementChild);
+```
+* `lastChild` - returns either text node or html element.
+* `lastElementChild` - returns html element.
+
+#### 2.1.4. Accessing First Child
+```html
+<ul id="items" class="list-group">
+  <li class="list-group-item">Item 1</li>
+  <li class="list-group-item">Item 2</li>
+  <li class="list-group-item">Item 3</li>
+  <li class="list-group-item">Item 4</li>
+</ul>
+```
+```js
+var itemList = document.querySelector('#items');
+console.log(itemList.firstChild);
+console.log(itemList.firstElementChild);
+```
+* `lastChild` - returns either text node or html element.
+* `lastElementChild` - returns html element.
+
+
+#### 2.1.5. Accessing Following Sibling
+```html
+<ul id="items" class="list-group">
+  <li class="list-group-item">Item 1</li>
+  <li class="list-group-item">Item 2</li>
+  <li class="list-group-item">Item 3</li>
+  <li class="list-group-item">Item 4</li>
+</ul>
+```
+```js
+var firstListItem = document.querySelector('.list-group-item:first-child');
+console.log(firstListItem.nextSibling);
+console.log(firstListItem.nextElementSibling);
+```
+* `nextSibling` - returns either text node or html element.
+* `nextElementSibling` - returns html element.
+
+#### 2.1.6. Accessing Previous Sibling
+```html
+<ul id="items" class="list-group">
+  <li class="list-group-item">Item 1</li>
+  <li class="list-group-item">Item 2</li>
+  <li class="list-group-item">Item 3</li>
+  <li class="list-group-item">Item 4</li>
+</ul>
+```
+```js
+var firstListItem = document.querySelector('.list-group-item:nth-child(3)');
+console.log(firstListItem.previousSibling);
+console.log(firstListItem.previousElementSibling);
+```
+* `previousSibling` - returns either text node or html element.
+* `previousElementSibling` - returns html element.
+
+### 2.2. Creating Elements
+
