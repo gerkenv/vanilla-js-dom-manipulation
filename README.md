@@ -61,3 +61,11 @@ There are a couple of different selectors:
 * `document.getElementById(id)` - returns a first matching element with defined `id` attribute. (In valid HTML there should be only one element with unique `id`).
 * `document.getElementsByClassName(cssClass)` - return a HTMLCollection of matches (not array, no `.forEach`).
 * `document.getElementsByTagName(htmlTag)` - return a HTMLCollection of matches (not array, no `.forEach`).
+* `document.querySelector(cssSelector)` - return a first matching element with fitting to a `cssSelector`. Work pretty much like `jQuery(cssSelector)`.
+  * `cssSelector` can be presented by
+    * `#id` - identifier;
+    * `h1` - tag;
+    * `.someClass` - element with `class="someClass"`;
+    * `input[type="submit"]` - get `input` element by tag where attribute `type` has value `submit`. Check how it works with several attributes or with class or with id or without tag.
+    * `pseudo-selectors`
+      * `.someClass:lastChild` - get the last child element with such class inside of a parent element.
