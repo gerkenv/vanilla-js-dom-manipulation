@@ -1,7 +1,21 @@
 # Vanilla JS DOM manipulation
 Based on [video series](https://www.youtube.com/watch?v=0ik6X4DJKCc).
 
-## DOM
+## 0. Preparation
+### 1. Live Reloading Server
+Get plugin called `live server` for vscode.
+
+### 2. Intellisence for CSS
+* [stackoverflow](https://stackoverflow.com/questions/35213941/how-to-add-intellisense-to-visual-studio-code-for-bootstrap)
+
+## 1. DOM Structure
+Let's get a document structure, type in console in DevTools or in `dom.js` (it is included in html, so it will be executed at the end of page loading).
+```js
+console.dir(document);
+```
+A lot of stuff, right? We'll skip the most of it.
+
+### 1.1. Minimal DOM
 Document object model represented by a tree structure, containing a couple of main nodes:
 ```html
 <!DOCTYPE html>
@@ -14,20 +28,7 @@ Document object model represented by a tree structure, containing a couple of ma
 ```
 That's it, every thing else is optional.
 
-## Live Reloading Server
-Get plugin called `live server` for vscode.
-
-## Intellisence for CSS
-* [stackoverflow](https://stackoverflow.com/questions/35213941/how-to-add-intellisense-to-visual-studio-code-for-bootstrap)
-
-## DOM Strcture
-Let's get a document structure, type in console in DevTools or in `dom.js` (it is included in html, so it will be executed at the end of page loading).
-```js
-console.dir(document);
-```
-A lot of stuff, right? We'll skip the most of it.
-
-### Useful Document Props (Perhaps)
+### 1.2. Useful Document Props (Perhaps)
 * `document.domain` - page domain / host.
 * `document.URL` - a complete page URL.
 * `document.title` - Content of `html > head > title`.
@@ -40,7 +41,7 @@ A lot of stuff, right? We'll skip the most of it.
 * `document.links` - get all links defined with `<a>` tag.
 * `document.images` - get all links defined with `<img>` tag.
 
-### Useful Element Props (Perhaps)
+### 1.3. Useful Element Props (Perhaps)
 Element can be created with function `document.createElement('h4')`. Any other html tag may be specified. \
 Some props:
 * `element.textContent` - get / set text within element (with all sub-elements). \
@@ -53,19 +54,32 @@ Some props:
 * `element.className` - get / set classes of element (represented by a string).
 * `element.classList` - has methods `.add` / `.remove` classes (represented by symbol table / dictionary).
 
-### Useful Element Methods (Perhaps)
+### 1.4. Useful Element Methods (Perhaps)
 * `element.append()` / `element.appendNode()` - add new child (if such child already exists then moves it from current position to the last child position).
 
-## Native Selectors
+### 1.5. Native Selectors
 There are a couple of different selectors:
 * `document.getElementById(id)` - returns a first matching element with defined `id` attribute. (In valid HTML there should be only one element with unique `id`).
 * `document.getElementsByClassName(cssClass)` - return a HTMLCollection of matches (not array, no `.forEach`).
 * `document.getElementsByTagName(htmlTag)` - return a HTMLCollection of matches (not array, no `.forEach`).
-* `document.querySelector(cssSelector)` - return a first matching element with fitting to a `cssSelector`. Work pretty much like `jQuery(cssSelector)`.
-  * `cssSelector` can be presented by
+* `document.querySelector(cssSelector)` - returns a first matching element with fitting to  `cssSelector`. Work pretty much like `jQuery(cssSelector)`.
+* `document.querySelectorAll(cssSelector)` - returns all matching elements as `NodeList`. `NodeList` is almost the same as `HTMLCollection`, except we can iterate this list.
+
+#### 1.5.1. CSS Selectors
+`cssSelector`  can be presented by:
+  * Simple selectors:
+    * [MDN reference](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Simple_selectors)
     * `#id` - identifier;
     * `h1` - tag;
     * `.someClass` - element with `class="someClass"`;
+  * Attribute selectors:
+    * [MDN reference](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Attribute_selectors)
     * `input[type="submit"]` - get `input` element by tag where attribute `type` has value `submit`. Check how it works with several attributes or with class or with id or without tag.
-    * `pseudo-selectors`
-      * `.someClass:lastChild` - get the last child element with such class inside of a parent element.
+  * Pseudo classes and pseudo elements
+    * [MDN reference](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Pseudo-classes_and_pseudo-elements)
+    * `.someClass:lastChild` - searches for a first parent element which contains at least one child with `.someClass` and matches the last child. (If further is available one more parent with one or several child elements of `.someClass`, the last one of them is not matched).
+    * `.someClass:nth-child(3)` - get third child.
+    * `.someClass:nth-child(odd)` - get odd child.
+    * `.someClass:nth-child(even)` - get even child.
+
+## 2. Traversing DOM
