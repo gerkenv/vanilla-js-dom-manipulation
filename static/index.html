@@ -15,13 +15,18 @@
   </header>
   <div class="container">
    <div id="main" class="card card-body">
-    <h2 class="title">Add Items</h2>
+    <h2 class="title">
+      <span>Add</span>
+      Items
+      <!-- Comment -->
+    </h2>
     <form class="form-inline mb-3">
-      <input type="text" class="form-control mr-2">
+      <label for="item-input">Enter an item name</label>
+      <input type="text" name="item-input" class="form-control mr-2"  value="default text">
       <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     <h2 class="title">Items</h2>
-    <ul id="items" class="list-group">
+    <ul id="items" class="list-group mb-3">
       <li class="list-group-item">Item 1</li>
       <li class="list-group-item">Item 2</li>
       <li class="list-group-item">Item 3</li>
@@ -29,11 +34,6 @@
     </ul>
    </div>
   </div>
-  <div class="container2">bla
-    <h3>dfdf</h3>
-
-  </div>
-
   <script src="dom.js"></script>
 </body>
 </html>

@@ -36,7 +36,7 @@ That's it, every thing else is optional.
 * `document.head` - get `head` node.
 * `document.body` - get `body` node.
 * `document.all` - HTMLAllCollection[n] - with `n` nodes defined in html document.
-* `document.all[7]` - get 7-th element. (You do not want to use it, only for fun).
+* `document.all[7]` - get 7-th element. (You do not want to use it, only for fun). Position of element may change, it cannot be used as constant identifier.
 * `document.forms` - get all forms of a document (HTMLCollection).
 * `document.links` - get all links defined with `<a>` tag.
 * `document.images` - get all links defined with `<img>` tag.
@@ -53,6 +53,13 @@ Some props:
 * `element.children` - get / set children nodes.
 * `element.className` - get / set classes of element (represented by a string).
 * `element.classList` - has methods `.add` / `.remove` classes (represented by symbol table / dictionary).
+* `element.nodeType` - a type of a DOM node.
+  * 1 - `Element` node.
+  * 3 - `Text` node.
+  * 8 - `Comment` node.
+  * 9 - `Document` node / root node.
+  * 10 - `DocumentType` node. This one --> `<!DOCTYPE html>`;
+  * 11 - `DocumentFragment` node. Created by `new DocumentFragment()` and exists temporary until a fragment is attached to the DOM.
 
 ### 1.4. Useful Element Methods (Perhaps)
 * `element.append()` / `element.appendNode()` - add new child (if such child already exists then moves it from current position to the last child position).
@@ -196,4 +203,80 @@ console.log(firstListItem.previousElementSibling);
 * `previousElementSibling` - returns html element.
 
 ### 2.2. Creating Elements
+It is possible to create any html element using function `document.createElement`.
+And add a new element to a DOM using `element.appendChild`.
+
+Code below
+```js
+// create a new `<div>` element
+var newDiv = document.createElement('div');
+// set an id
+newDiv.id = 'divId'
+// set a class
+newDiv.className = 'divClass';
+// set an attribute
+newDiv.setAttribute('attribute', 'value');
+// change css style
+newDiv.style.backgroundColor = 'dodgerBlue'
+newDiv.style.color = 'white';
+// add a margin-top
+newDiv.classList.add('p-2');
+// add an inner text (Option 1)
+// better to avoid, it will overwrite all child nodes with one new text node
+// newDiv.innerText = 'new div is here';
+// add an inner text (Option 2)
+{
+  // create a text node
+  var newDivText = document.createTextNode('new text node');
+  // append a text node to a div node
+  newDiv.appendChild(newDivText);
+}
+// add the div node to DOM element
+{
+  // get div with id `main`
+  var mainDiv = document.querySelector('div#main');
+  // append a child to this div
+  mainDiv.appendChild(newDiv);
+}
+// print out a new element
+console.log(newDiv);
+```
+will add a new element after `ul` element and output new element in a console.
+
+### 2.3. Injecting Elements with `appendChild`
+`element.appendChild(newChildElement)` will add a `newChildElement` as the last child, if `newChildElement` was already a child of an `element` it will be moved down and set to position of a last child.
+```js
+// get second `li` inside of `ul`
+var secondItem = document.querySelector('.list-group-item:nth-child(2)');
+// move it to the bottom of `ul`
+secondItem.parentElement.appendChild(secondItem);
+// print out the element
+console.log(secondItem);
+```
+
+### 2.4. Clone and `insertBefore` an Original
+```html
+<h2 class="title">
+  <span>Add</span>
+  Items
+  <!-- Comment -->
+</h2>
+```
+```js
+// get `h2` with `title` id
+var itemsTitle = document.querySelector('h2.title'); // returns Element
+// create a deep copy of a node
+var itemsTitleCopy = itemsTitle.cloneNode(true); // returns Node
+// replacing an id
+itemsTitleCopy.setAttribute('id', 'new-id');
+// create a text node
+var copyTextNode = document.createTextNode(' (Copy)');
+// add a text node to a copy
+itemsTitleCopy.appendChild(copyTextNode);
+// insert copy before the original node
+itemsTitle.parentNode.insertBefore(itemsTitleCopy, itemsTitle);
+// print out both elements
+console.log(itemsTitle);
+console.log(itemsTitleCopy);
+```
 

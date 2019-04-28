@@ -89,3 +89,112 @@
 //   even[i].style.backgroundColor = '#ccc';
 // }
 
+// TRAVERSING THE DOM //
+
+// // parent
+// console.groupCollapsed('parent');
+// var itemList = document.querySelector('h2.title');
+// console.log(itemList.parentNode);
+// console.log(itemList.parentElement);
+// console.groupEnd();
+
+// // children
+// console.groupCollapsed('children');
+// var itemList = document.querySelector('#items');
+// console.log(itemList.childNodes);
+// console.log(itemList.children);
+// console.groupEnd();
+
+// // last child
+// console.groupCollapsed('last child');
+// var itemList = document.querySelector('#items');
+// console.log(itemList.lastChild);
+// console.log(itemList.lastElementChild);
+// console.groupEnd();
+
+// // first child
+// console.groupCollapsed('first child');
+// var itemList = document.querySelector('#items');
+// console.log(itemList.firstChild);
+// console.log(itemList.firstElementChild);
+// console.groupEnd();
+
+// // next sibling
+// console.groupCollapsed('next sibling');
+// var firstListItem = document.querySelector('.list-group-item:first-child');
+// console.log(firstListItem.nextSibling);
+// console.log(firstListItem.nextElementSibling);
+// console.groupEnd();
+
+// // previous sibling
+// console.groupCollapsed('previous sibling');
+// var firstListItem = document.querySelector('.list-group-item:nth-child(3)');
+// console.log(firstListItem.previousSibling);
+// console.log(firstListItem.previousElementSibling);
+// console.groupEnd();
+
+// Create an element
+// console.groupCollapsed('creating new element');
+// // create a new `<div>` element
+// var newDiv = document.createElement('div');
+// // set an id
+// newDiv.id = 'divId'
+// // set a class
+// newDiv.className = 'divClass';
+// // set an attribute
+// newDiv.setAttribute('attribute', 'value');
+// // change css style
+// newDiv.style.backgroundColor = 'dodgerBlue'
+// newDiv.style.color = 'white';
+// // add a margin-top
+// newDiv.classList.add('p-2');
+// // add an inner text (Option 1)
+// // better to avoid, it will overwrite all child nodes with one new text node
+// // newDiv.innerText = 'new div is here';
+// // add an inner text (Option 2)
+// {
+//   // create a text node
+//   var newDivText = document.createTextNode('new text node');
+//   // append a text node to a div node
+//   newDiv.appendChild(newDivText);
+// }
+// // add the div node to DOM element
+// {
+//   // get div with id `main`
+//   var mainDiv = document.querySelector('div#main');
+//   // append a child to this div
+//   mainDiv.appendChild(newDiv);
+// }
+// // print out a new element
+// console.log(newDiv);
+// console.groupEnd();
+
+// // Using append to move an element
+// console.groupCollapsed('Moving element to a last child position');
+// // get second `li` inside of `ul`
+// var secondItem = document.querySelector('.list-group-item:nth-child(2)');
+// // move it to the bottom of `ul`
+// secondItem.parentElement.appendChild(secondItem);
+// // print out the element
+// console.log(secondItem);
+// console.groupEnd();
+
+// // Cloning and inserting an element
+// console.groupCollapsed('Cloning and inserting element');
+// // get `h2` with `title` id
+// var itemsTitle = document.querySelector('h2.title');
+// // create a deep copy of a node
+// var itemsTitleCopy = itemsTitle.cloneNode(true);
+// // replacing an id
+// itemsTitleCopy.setAttribute('id', 'new-id');
+// // create a text node
+// var copyTextNode = document.createTextNode(' (Copy)');
+// // add a text node to a copy
+// itemsTitleCopy.appendChild(copyTextNode);
+// // insert copy before the original node
+// itemsTitle.parentNode.insertBefore(itemsTitleCopy, itemsTitle);
+// // print out both elements
+// console.log(itemsTitle);
+// console.log(itemsTitleCopy);
+// console.groupEnd();
+
