@@ -16,22 +16,38 @@
   <div class="container">
    <div id="main" class="card card-body">
     <h2 class="title">
-      <span>Add</span>
-      Items
+      <span>Add an</span>
+      Item
       <!-- Comment -->
     </h2>
-    <form class="form-inline mb-3">
-      <label for="item-input">Enter an item name</label>
-      <input type="text" name="item-input" class="form-control mr-2"  value="default text">
-      <input type="submit" class="btn btn-primary" value="Submit">
+    <form>
+      <div class="form-group">
+        <label for="new-item-input">A name of a new item</label>
+        <input type="text" class="form-control" id="new-item-input" placeholder="Pizza">
+      </div>
+      <div class="form-group">
+        <label for="select-option-input">Select an option</label>
+        <select class="form-control" id="select-option-input">
+          <option value="1">1 opt.</option>
+          <option value="2">2 opt.</option>
+          <option value="3">3 opt.</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <h2 class="title">Items</h2>
+    <br>
+    <h2 class="title">Available Items</h2>
     <ul id="items" class="list-group mb-3">
       <li class="list-group-item">Item 1</li>
       <li class="list-group-item">Item 2</li>
       <li class="list-group-item">Item 3</li>
       <li class="list-group-item">Item 4</li>
     </ul>
+    <br>
+    <button class="btn btn-info btn-block mb-3" id="button">Click Here</button>
+    <div class="card" id="smallCard" style="width:255px;height:255px">
+      <h2>Hello</h2>
+    </div>
    </div>
   </div>
   <script src="dom.js"></script>

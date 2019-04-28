@@ -280,3 +280,206 @@ console.log(itemsTitle);
 console.log(itemsTitleCopy);
 ```
 
+## 3. Events
+Let's add a button first, add some lines after `ul` element.
+```html
+</ul>
+<br>
+<button class="btn btn-info btn-block" id="button">Click Here</button>
+```
+You could use emmet abbreviation for a button - type `button.btn.btn-info.btn-block#button` and click tab to resolve it.
+
+### 3.1 Adding an Event Listener
+We add a simplest event lister `onClick` which is raised when button is clicked.
+
+In the past
+* it was easy to simply put the function inside of an event definition.
+```html
+<button onclick="alert('ohh nooo!');" class="btn btn-info btn-block"
+```
+* Or you can set it to a function and define it in separate .js file.
+```html
+<button onclick="onButtonClick(1)" class="btn btn-info btn-block"
+```
+
+But now code is usually separated from a view. And somewhere in code you can query an element and add an event listener to it like shown below.
+```js
+var button = document.getElementById('button');
+button.addEventListener('click', onEvent);
+
+function onEvent() {
+  console.log('Button clicked');
+}
+```
+This is an appropriate way of doing things.
+
+### 3.2. Event Object Properties
+Event object contains a lot of information about event itself.
+Here are some useful examples.
+```js
+var button = document.getElementById('button');
+button.parentElement.addEventListener('click', onEvent);
+
+function onEvent(e) {
+  // print out event properties
+  console.log(e);
+  // print out event target
+  console.log(e.target);
+  // print out a type of event
+  console.log(e.type);
+  // print out vertical distance between top edge of html page and mouse position
+  console.log(e.clientY);
+  // print out horizontal distance between left edge of html page and mouse position
+  console.log(e.clientX);
+  // print out vertical distance between top edge of `e.target` and mouse position
+  console.log(e.offsetY);
+  // print out horizontal distance between left edge of `e.target` and mouse position
+  console.log(e.offsetX);
+  // print out 'if `Alt / Ctrl / Shift` was pressed when button was clicked`
+  console.log(e.altKey);
+  console.log(e.ctrlKey);
+  console.log(e.shiftKey);
+}
+```
+
+### 3.3. Mouse Click Events
+```js
+var button = document.getElementById('button');
+// add event listeners
+
+// usual `click`
+button.parentElement.addEventListener('click', onEvent2);
+// double click
+button.parentElement.addEventListener('dblclick', onEvent2);
+// mouse button is pressed down (is may be also never released)
+button.parentElement.addEventListener('mousedown', onEvent2);
+// mouse button is released
+button.parentElement.addEventListener('mouseup', onEvent2);
+
+// define delegate
+function onEvent2(e) {
+  console.log('Event type is "' + e.type + '"');
+}
+```
+
+### 3.4. Mouse Movement Events
+Add following layout items:
+```html
+<div class="card" id="smallCard" style="width:255px;height:255px">
+  <h2>Hello</h2>
+</div>
+```
+```js
+var div = document.getElementById('smallCard');
+// add event listeners
+
+// Event is raised when mouse is moved inside of an element area
+div.addEventListener('mouseenter', onEvent3);
+// Event is raised when mouse is moved outside of an element area
+div.addEventListener('mouseleave', onEvent3);
+
+// Event is raised when mouse is moved inside of an element area or subelement area
+div.addEventListener('mouseover', onEvent3);
+// Event is raised when mouse is moved outside of an element area or subelement area
+div.addEventListener('mouseout', onEvent3);
+
+// define delegate
+function onEvent3(e) {
+  console.log('Event type is "' + e.type + '"');
+}
+```
+
+### 3.5. `mousemove` Color Picker
+```js
+var div = document.getElementById('smallCard');
+// add event listeners
+
+// Event is raised when mouse is moved somehow above an element area
+div.addEventListener('mousemove', onEvent4);
+
+// define delegate
+function onEvent4(e) {
+  div.style.backgroundColor = "rgb("+e.offsetX+", "+e.offsetY+", 100)";
+  div.firstElementChild.innerHTML =
+    "red : " + e.offsetX + "<br>" + "green: " + e.offsetY;
+}
+```
+
+### 3.6. Keyboard and Input[type="text"] Events
+Please test this events independently.
+```js
+// Input events
+var input = document.querySelector('input[type="text"]');
+var h2 = document.querySelector('div#smallCard h2');
+
+// is going to run when you're pressed a key (in this case it will provoke an input delay in one character)
+input.addEventListener('keydown', onEvent5);
+// is going to run when you're release a key (in this case it will not provoke an input delay in one character)
+input.addEventListener('keyup', onEvent5);
+// is going to run when you're pressed a key (in this case it will provoke an input delay in one character)
+input.addEventListener('keypress', onEvent5);
+
+// An event is fired when you click somewhere inside of an element, navigate to it with `tab`, so focus an element somehow.
+input.addEventListener('focus', onEvent5);
+// An event is fired when you click somewhere outside of a focused element, navigate away from it with `tab`, so focus moves somewhere else.
+input.addEventListener('blur', onEvent5);
+
+// an event is fired when you cut some text with `Ctrl+X` or right click --> cut
+// `e.target.value` stores cut text
+input.addEventListener('cut', onEvent5);
+// an event is fired when you paste some text with `Ctrl+V` or right click --> paste
+input.addEventListener('paste', onEvent5);
+
+// Any change of value of input will provoke this event (editing, cutting, pasting)
+input.addEventListener('input', onEvent5);
+
+function onEvent5(e) {
+  // get type of an event
+  console.log('Event type: ' + e.type);
+  // get current value of input
+  h2.innerHTML = e.target.value;
+}
+```
+
+### 3.7. Select Events
+```html
+<div class="form-group">
+  <label for="select-option-input">Select an option</label>
+  <select class="form-control" id="select-option-input">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
+</div>
+```
+```js
+var select = document.querySelector('select');
+var h2 = document.querySelector('div#smallCard h2');
+// An event is raised when some option is chosen, `e.target.value` stores a value assigned to an option.
+select.addEventListener('change', onEvent6);
+// same as above
+select.addEventListener('input', onEvent6);
+function onEvent6(e) {
+  // get type of an event
+  console.log('Event type: ' + e.type);
+  // get current value of input
+  h2.innerHTML = e.target.value;
+}
+```
+
+### 3.8. `Submit` Event
+```js
+var form = document.querySelector('form');
+var h2 = document.querySelector('div#smallCard h2');
+// fires when form button with `type=submit` is clicked
+form.addEventListener('submit', onEvent7);
+// event delegate
+function onEvent7(e) {
+  // prevent default behavior (defined by `submit` button type)
+  e.preventDefault();
+  // get type of an event
+  console.log('Event type: ' + e.type);
+  // get current value of input
+  h2.innerHTML = e.target.value;
+}
+```
